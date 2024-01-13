@@ -12,9 +12,11 @@ const INPUT_IDENTIFIERS = {
 };
 
 
+
 function App() {
 
    const [userInput, setUserInput] = useState(INPUT_IDENTIFIERS);
+   const inputIsValid = userInput.duration >= 1;
 
    function handleChange(inputIdentifier, newValue){
     setUserInput(prevUserInput => {
@@ -34,7 +36,7 @@ function App() {
       
       <UserInput newInput={userInput} onChangeValue={handleChange}/>
 
-      <ResultsTable newData={data}/>
+      {inputIsValid ? <ResultsTable newData={data}/> : <p className="center">The duration should be greater than 0 (zero).</p>}
     </>
   );
 }
