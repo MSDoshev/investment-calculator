@@ -1,12 +1,14 @@
 import { useState } from "react";
 import Header from "./components/Header/Header";
 import UserInput from "./components/UserInput/UserInput";
+import ResultsTable from "./components/ResultsTable/ResultsTable";
+import {calculateInvestmentResults} from './util/investment'
 
 const INPUT_IDENTIFIERS = {
-  initialInvestment: 0,
-  annualInvestment: 0,
-  expectedReturn: 0,
-  duration: 0,
+  initialInvestment: 10000,
+  annualInvestment: 300,
+  expectedReturn: 5.5,
+  duration: 12,
 };
 
 
@@ -18,19 +20,21 @@ function App() {
     setUserInput(prevUserInput => {
         return{
             ...prevUserInput,
-            [inputIdentifier]: newValue,
+            [inputIdentifier]: +newValue,
         }
     })
     
 }
-
-
-
+  
+  let data = calculateInvestmentResults(userInput);
+  
   return (
     <>
       <Header />
       
       <UserInput newInput={userInput} onChangeValue={handleChange}/>
+
+      <ResultsTable newData={data}/>
     </>
   );
 }
